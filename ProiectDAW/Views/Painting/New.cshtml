@@ -1,0 +1,32 @@
+﻿@model ProiectDAW.Models.Painting
+@{
+    ViewBag.Title = "Create";
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm(actionName: "New", controllerName: "Painting", method: FormMethod.Post))
+{
+    @Html.Label("Title", "Painting Title:")
+    <br />
+    @Html.TextBoxFor(b => b.Title, null, new { placeholder = "Type in the painting's title", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Title, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Artist", "Artist:")
+    <br />
+    @Html.TextBoxFor(b => b.Artist, null, new { placeholder = "Type in the painting's author", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Artist, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Description", "Description:")
+    <br />
+    @Html.TextArea("Description", null, new { placeholder = "Type in the painting's description", @class = "formcontrol", @rows = "10" })
+    @Html.ValidationMessageFor(b => b.Description, "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-primary" type="submit">Create</button>
+
+    @Html.Label("Curator", "Curator:")
+    <br />
+    @Html.DropDownListFor(b => b.CuratorId, new SelectList(Model.CuratorsList, "Value", "Text"), "Choose a curator", new { @class = "form - control" })
+
+     @Html.ValidationMessageFor(b => b.CuratorId, "", new { @class = "text-danger" })
+    <br />
+    <br />
+}

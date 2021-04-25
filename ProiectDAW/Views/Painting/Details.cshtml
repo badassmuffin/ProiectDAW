@@ -1,0 +1,62 @@
+﻿@model ProiectDAW.Models.Painting
+@{
+    ViewBag.Title = "Details";
+    var emptyDescriptionMsgVar = "This painting has no description";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>@ViewBag.Title</h2>
+        @Html.Label("Title", "Title:")
+        <br />
+        <p>@Model.Title</p>
+        @Html.Label("Artist", "Artist:")
+        <br />
+        <p>@Model.Artist</p>
+
+        @if (Model.Curator != null)
+        {
+            @Html.Label("Curator", "Curator:")
+            <br />
+            <p>@Model.Curator.Name</p>
+            
+        }
+
+        @Html.Label("Description", "Description:")
+        <br />
+        <div class="panel-body">
+            @if (Model.Description.IsEmpty())
+            {
+                <p>@emptyDescriptionMsgVar</p>
+            }
+            else
+            {
+                @*@Html.Display("Description")*@
+                @Html.DisplayFor(b => b.Description)
+            }
+        </div>
+        @if (Model.Techniques.Count > 0)
+        {
+            @Html.Label("Techniques", "Techniques:")
+            <br />
+            <ul>
+                @foreach (var technique in Model.Techniques)
+                {
+                    <li>@technique.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Painting", method: FormMethod.Get, routeValues:
+new { id = Model.PaintingId }))
+{
+    <button style="margin-right:5px" class="btn btn-primary col-lg-1" type="submit">Update</button>
+}
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Painting", method: FormMethod.Post, routeValues:
+new { id = Model.PaintingId }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
+}
+<br />

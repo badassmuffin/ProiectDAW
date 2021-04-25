@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Paintings";
+}
+<h2>@ViewBag.Title</h2>
+@foreach (var painting in ViewBag.Paintings)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.Label("Title", "Title:")
+            <br />
+            <p>@painting.Title</p>
+            @Html.Label("Artist", "Artist:")
+            <br />
+            <p>@painting.Artist</p>
+            @using (Html.BeginForm(actionName: "Details", controllerName: "Painting", method: FormMethod.Get,
+        routeValues: new { id = painting.PaintingId }))
+            {
+                <button class="btn btn-primary">Details</button>
+            }
+        </div>
+    </div>
+}
+@Html.ActionLink("Add painting", "New")
+

@@ -1,0 +1,39 @@
+﻿@model ProiectDAW.Models.Painting
+@{
+    ViewBag.Title = "Update";
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Painting"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <!--camp ascuns pentru a retine id-ul obiectului-->
+    @Html.HiddenFor(b => b.PaintingId)
+    <br />
+    @Html.Label("Title", "Painting Title:")
+    <br />
+    @Html.EditorFor(b => b.Title, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Title, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Artist", "Artist:")
+    <br />
+    @Html.Editor("Artist", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(b => b.Artist, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Description", "Description:")
+    <br />
+    @Html.TextAreaFor(b => b.Description, new { @class = "form-control", @rows = "10" })
+    @Html.ValidationMessageFor(b => b.Description, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-primary" type="submit">Update</button>
+
+    @Html.Label("Curator", "Curator:")
+    <br />
+    @Html.DropDownListFor(b => b.CuratorId, new SelectList(Model.CuratorsList, "Value", "Text"), "Choose a curator", new { @class = "form - control" })
+
+    @Html.ValidationMessageFor(b => b.CuratorId, "", new { @class = "text-danger" })
+    <br />
+    <br />
+}
